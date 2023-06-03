@@ -82,3 +82,8 @@ def cart_delete(request,product_id):
     return redirect('cartDetails')
 
 
+def checkout(request):
+    return render(request,'checkout.html')
+
+def payment(request):
+    return render(request,'bank.html')
