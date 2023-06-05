@@ -18,75 +18,62 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-10 ftco-animate">
-						<form action="/" class="billing-form" method="post">
+						<form action="checkout" class="billing-form" method="post">
 							{% csrf_token %}
 							<h3 class="mb-4 billing-heading">Billing Details</h3>
 	          	<div class="row align-items-end">
 	          		<div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="firstname">Firt Name</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                	<label>Firt Name</label>
+	                  <input type="text" class="form-control" placeholder="" name="fname" required>
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="lastname">Last Name</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                	<label>Last Name</label>
+	                  <input type="text" class="form-control" placeholder="" name="lname" required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
 		            <div class="col-md-12">
 		            	<div class="form-group">
-		            		<label for="country">State / Country</label>
+		            		<label >State / Country</label>
 		            		<div class="select-wrap">
-		                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                  <select name="" id="" class="form-control">
-		                  	<option value="">France</option>
-		                    <option value="">Italy</option>
-		                    <option value="">Philippines</option>
-		                    <option value="">South Korea</option>
-		                    <option value="">Hongkong</option>
-		                    <option value="">Japan</option>
-		                  </select>
+	<input type="text" class="form-control" placeholder="" name="county" required>
 		                </div>
 		            	</div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
-	                	<label for="streetaddress">Street Address</label>
-	                  <input type="text" class="form-control" placeholder="House number and street name">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
+	                	<label>Address</label>
+	                  <input type="textarea" class="form-control" placeholder="House number and street name" name="address" required>
 	                </div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
-	                	<label for="towncity">Town / City</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                	<label>Town / City</label>
+	                  <input type="text" class="form-control" placeholder="" name="city" required>
 	                </div>
 		            </div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
-		            		<label for="postcodezip">Postcode / ZIP *</label>
-	                  <input type="text" class="form-control" placeholder="">
+		            		<label>Postcode / ZIP *</label>
+	                  <input type="text" class="form-control" placeholder="" name="pin" required>
 	                </div>
 		            </div>
 		            <div class="w-100"></div>
 		            <div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="phone">Phone</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                	<label>Phone</label>
+	                  <input type="text" class="form-control" placeholder="" name="phone" required>
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
-	                	<label for="emailaddress">Email Address</label>
-	                  <input type="text" class="form-control" placeholder="">
+	                	<label>Email Address</label>
+	                  <input type="text" class="form-control" placeholder="" name="email" required>
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -117,7 +104,7 @@
 		    					<hr>
 		    					<p class="d-flex total-price">
 		    						<span>Total</span>
-		    						<span>$17.60</span>
+		    						<span>{{t}}</span>
 		    					</p>
 						 <td><input type="submit" value="place order"></td>
 								</div>

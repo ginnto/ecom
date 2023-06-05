@@ -29,18 +29,23 @@ class items(models.Model):
 
 class Checkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cart = models.ForeignKey(cartlist, on_delete=models.CASCADE)
+    cart = models.ForeignKey(cartlist, on_delete=models.CASCADE,null=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
-    streetaddress = models.TextField(max_length=200)
-    apartment = models.CharField(max_length=200, blank=True)
+    address = models.TextField(max_length=200)
     towncity = models.CharField(max_length=100)
     postcodezip = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
-    payment_method = models.CharField(max_length=100)
-    terms_accepted = models.BooleanField()
+
 
     def __str__(self):
         return f"Checkout #{self.id}"
+
+class payment(models.Model):
+    account_number = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    expiry_month = models.CharField(max_length=2)
+    expiry_year = models.CharField(max_length=2)
+    cvv = models.CharField(max_length=3)

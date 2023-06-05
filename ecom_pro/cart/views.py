@@ -83,7 +83,51 @@ def cart_delete(request,product_id):
 
 
 def checkout(request):
-    return render(request,'checkout.html')
+    if request.method == 'POST':
+        firstname = request.POST['fname']
+        lastname = request.POST['lname']
+        country = request.POST['county']
+        address = request.POST['address']
+        towncity = request.POST['city']
+        postcodezip = request.POST['pin']
+        phone = request.POST['phone']
+        email = request.POST['email']
+
+        cart = cartlist.objects.filter(user=request.user).first()
+
+        checkout = Checkout(
+            user=request.user,
+            cart=cart,
+            firstname=firstname,
+            lastname=lastname,
+            country=country,
+            address=address,
+            towncity=towncity,
+            postcodezip=postcodezip,
+            phone=phone,
+            email=email
+        )
+        checkout.save()
+
+        return redirect('payment')
+
+    return render(request, 'checkout.html')
 
 def payment(request):
-    return render(request,'bank.html')
+    if request.method == 'POST':
+        # Retrieve the form data from the POST request
+        account_number = request.POST.get('account-number')
+        name = request.POST.get('name')
+        expiry_month = request.POST.get('expiry-month')
+        expiry_year = request.POST.get('expiry-year')
+        cvv = request.POST.get('cvv')
+
+        # Perform validation and additional actions if needed
+
+        # Save the form data to the database or perform other actions
+        # You can create a model object and save it to the database here
+
+        # Return a success response or redirect to a success page
+        return render(request, 'checkout_success.html')
+
+    return render(request, 'checkout.html')
