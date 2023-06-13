@@ -23,7 +23,6 @@ class items(models.Model):
         return str(self.prod)
 
 
-
     def total(self):
         return self.prod.price*self.quan
 
@@ -44,8 +43,13 @@ class Checkout(models.Model):
         return f"Checkout #{self.id}"
 
 class payment(models.Model):
-    account_number = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account_number = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     expiry_month = models.CharField(max_length=2)
     expiry_year = models.CharField(max_length=2)
     cvv = models.CharField(max_length=3)
+
+
+    def __str__(self):
+        return self.user.username

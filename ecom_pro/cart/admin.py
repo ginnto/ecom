@@ -7,5 +7,6 @@ from . models import *
 admin.site.register(cartlist)
 admin.site.register(items)
 admin.site.register(Checkout)
+admin.site.register(payment)
 
 

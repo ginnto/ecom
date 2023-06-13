@@ -19,6 +19,8 @@ def cart_details(request,tot=0,count=0,cart_items=None,ct_items=None):
             cart_id = request.session.get('cart_id')
             ct = cartlist.objects.filter(cart_id=cart_id)
 
+# -----------------------------------------------------------------------
+
         ct_items = items.objects.filter(cart__in=ct, active=True)
         for i in ct_items:
             tot += (i.prod.price * i.quan)
@@ -60,8 +62,11 @@ def add_cart(request,product_id):
         c_items.save()
     return redirect('cartDetails')
 
+@login_required(login_url='register')  #changed
 def min_cart(request,product_id):
-    ct=cartlist.objects.get(cart_id=c_id(request))
+    user = request.user
+    ct=cartlist.objects.get(user=user,cart_id=c_id(request))
+
     prod=get_object_or_404(products,id=product_id)
     c_items=items.objects.get(prod=prod,cart=ct)
     if c_items.quan>1:
@@ -71,16 +76,29 @@ def min_cart(request,product_id):
         c_items.delete()
     return redirect('cartDetails')
 
-def cart_delete(request,product_id):
-    ct=cartlist.objects.get(cart_id=c_id(request))
-    prod=get_object_or_404(products,id=product_id)
+@login_required(login_url='register')  #changed
+def cart_delete(request, product_id):
+    user = request.user
     try:
-        c_items = items.objects.get(prod=prod, cart=ct)
-        c_items.delete()
-    except items.DoesNotExist:
-        pass
-    return redirect('cartDetails')
+        if user.is_authenticated:
+            ct_list = cartlist.objects.filter(user=user)
+        else:
+            cart_id = request.session.get('cart_id')
+            ct_list = cartlist.objects.filter(cart_id=cart_id)
 
+        if ct_list.exists():
+            for ct in ct_list:
+                prod = get_object_or_404(products, id=product_id)
+                try:
+                    c_items = items.objects.get(prod=prod, cart=ct)
+                    c_items.delete()
+                except items.DoesNotExist:
+                    pass
+
+    except cartlist.DoesNotExist:
+        pass
+
+    return redirect('cartDetails')
 
 def checkout(request):
     if request.method == 'POST':
@@ -92,7 +110,6 @@ def checkout(request):
         postcodezip = request.POST['pin']
         phone = request.POST['phone']
         email = request.POST['email']
-
         cart = cartlist.objects.filter(user=request.user).first()
 
         checkout = Checkout(
@@ -113,21 +130,31 @@ def checkout(request):
 
     return render(request, 'checkout.html')
 
-def payment(request):
+def payments(request):
     if request.method == 'POST':
-        # Retrieve the form data from the POST request
-        account_number = request.POST.get('account-number')
+        account_number = request.POST.get('account_number')
         name = request.POST.get('name')
-        expiry_month = request.POST.get('expiry-month')
-        expiry_year = request.POST.get('expiry-year')
+        expiry_month = request.POST.get('expiry_month')
+        expiry_year = request.POST.get('expiry_year')
         cvv = request.POST.get('cvv')
 
-        # Perform validation and additional actions if needed
+        pay = payment(
+            user=request.user,
+            account_number=account_number,
+            name=name,
+            expiry_month=expiry_month,
+            expiry_year=expiry_year,
+            cvv=cvv
+        )
+        pay.save()
 
-        # Save the form data to the database or perform other actions
-        # You can create a model object and save it to the database here
+        user = request.user
+        ct = cartlist.objects.get(user=user, cart_id=c_id(request))
+        items.objects.filter(cart=ct).delete()
+        return redirect('success')
 
-        # Return a success response or redirect to a success page
-        return render(request, 'checkout_success.html')
+    return render(request, 'bank.html')
 
-    return render(request, 'checkout.html')
+
+def success(request):
+    return render(request,'successful.html')

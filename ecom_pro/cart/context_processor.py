@@ -29,19 +29,3 @@ def cart_total(request):
         count += i.quan
 
     return {'t': tot, 'cn': count}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -68,7 +68,6 @@ TEMPLATES = [
                 # 'cart.context_processor.count',
                 'cart.context_processor.cate',
                 'cart.context_processor.cart_total',
-
             ],
         },
     },

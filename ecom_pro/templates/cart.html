@@ -5,7 +5,7 @@
 <!-- END nav -->
     <div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_6.jpg' %});">
       <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="row no-gutters slider-text align-ite  ms-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
             <h1 class="mb-0 bread">My Wishlist</h1>
@@ -30,6 +30,9 @@
 						        <th>Total</th>
 						      </tr>
 						    </thead>
+							{% if cn == 0 %}
+							<h5>empty</h5>
+							{% endif %}
 						    <tbody>
 							{% for i in ci %}
 						      <tr class="text-center">
@@ -42,7 +45,7 @@
 						        	<p>Far far away, behind the word mountains, far from the countries</p>
 						        </td>
 						        
-						        <td class="price">{{i.prod.price}}</td>
+						        <td class="price">₹{{i.prod.price}}</td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
@@ -52,7 +55,7 @@
 					          	</div>
 					          </td>
 						        
-						        <td class="total">{{i.total}}</td>
+						        <td class="total">₹{{i.total}}</td>
 						      </tr><!-- END TR-->
 							{% endfor %}
 
@@ -68,20 +71,20 @@
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-    						<span>>Total {{t}}</span>
+    						<span>₹{{t}}</span>
     					</p>
     					<p class="d-flex">
-    						<span>Delivery</span>
-    						<span>$0.00</span>
+    						<span>Total Quantity</span>
+    						<span>{{cn}}</span>
     					</p>
     					<p class="d-flex">
     						<span>Discount</span>
-    						<span>$3.00</span>
+    						<span>00</span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>>Total {{t}}</span>
+    						<span>₹{{t}}.00</span>     <!-- ctrl+alt+4---->
     					</p>
     				</div>
     				<p class="text-center"><a href="checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
