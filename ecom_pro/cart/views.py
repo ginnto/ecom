@@ -64,16 +64,30 @@ def add_cart(request,product_id):
 
 @login_required(login_url='register')  #changed
 def min_cart(request,product_id):
-    user = request.user
-    ct=cartlist.objects.get(user=user,cart_id=c_id(request))
 
-    prod=get_object_or_404(products,id=product_id)
-    c_items=items.objects.get(prod=prod,cart=ct)
-    if c_items.quan>1:
-        c_items.quan-=1
-        c_items.save()
-    else:
-        c_items.delete()
+    user = request.user
+    try:
+        if user.is_authenticated:
+            ct_list = cartlist.objects.filter(user=user)
+        else:
+            cart_id = request.session.get('cart_id')
+            ct_list = cartlist.objects.filter(cart_id=cart_id)
+    # ct=cartlist.objects.get(user=user,cart_id=c_id(request))
+        if ct_list.exists:
+            for ct in ct_list:
+                prod=get_object_or_404(products,id=product_id)
+                try:
+                    c_items=items.objects.get(prod=prod,cart=ct)
+                    if c_items.quan>1:
+                        c_items.quan-=1
+                        c_items.save()
+                    else:
+                        c_items.delete()
+                except items.DoesNotExist:
+                    pass
+    except cartlist.DoesNotExist:
+        pass
+
     return redirect('cartDetails')
 
 @login_required(login_url='register')  #changed

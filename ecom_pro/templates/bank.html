@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_6.jpg' %});">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+            <h1 class="mb-0 bread">Checkout</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-6 ftco-animate">
+            <h1>Bank Checkout Form</h1>
+            <form action="payment" class="bank-form" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <label>Account Number</label>
+                <input type="text" placeholder="Enter your account number" name="account_number" required>
+              </div>
+              <div class="form-group">
+                <label >Name</label>
+                <input type="text" placeholder="Enter your name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label >Expiration Date</label>
+                <div class="expiry-group">
+                  <input type="text"  placeholder="MM" name="expiry_month" required>
+                  <input type="text"  placeholder="YY" name="expiry_year" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label >CVV</label>
+                <input type="text"  placeholder="Enter the CVV code"  name="cvv" required>
+              </div>
+              <td><input type="submit" value="pay"></td>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* Custom CSS styles */
+      .bank-form {
+        margin-top: 30px;
+      }
+
+      .bank-form .form-group {
+        margin-bottom: 20px;
+      }
+
+      .bank-form label {
+        font-weight: bold;
+      }
+
+      .bank-form input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .bank-form .expiry-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .bank-form .btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .bank-form .btn:hover {
+        background-color: #0069d9;
+      }
+    </style>
+
+{% endblock %}

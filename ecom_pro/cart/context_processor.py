@@ -1,4 +1,4 @@
-from . models import *
+
 from . views import *
 from home.views import *
 
