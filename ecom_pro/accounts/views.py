@@ -59,3 +59,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+def logtest(request):
+    return render(request,"login2.html")

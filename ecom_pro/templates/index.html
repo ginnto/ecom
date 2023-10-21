@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <!-- END nav -->
 
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
@@ -17,7 +16,6 @@
 		          		<div class="horizontal">
 				            <h1 class="mb-4 mt-3">Shoes Collection 2019</h1>
 				            <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
-				            
 				            <p><a href="#" class="btn-custom">Discover Now</a></p>
 				          </div>
 		            </div>
@@ -99,26 +97,26 @@
     	</div>
     	<div class="container">
     		<div class="row">
-				{% for i in pr.object_list %}
+				{% for i in pr %}
     			<div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex">
     				<div class="product d-flex flex-column">
     					<a href="#" class="img-prod"><img class="img-fluid" src="{{i.img.url}}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
-    					<div class="text py-3 pb-4 px-3">
-    						<div class="d-flex">
-    							<div class="cat">
-		    						<span>{{i.category}}</span>
-		    					</div>
-		    					<div class="rating">
-	    							<p class="text-right mb-0">
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    								<a href="#"><span class="ion-ios-star-outline"></span></a>
-	    							</p>
-	    						</div>
+						<div class="text py-3 pb-4 px-3">
+							<div class="d-flex">
+								<div class="cat">
+									<span>{{i.category}}</span>
+								</div>
+<!--		    					<div class="rating">-->
+<!--	    							<p class="text-right mb-0">-->
+<!--	    								<a href="#"><span class="ion-ios-star-outline"></span></a>-->
+<!--	    								<a href="#"><span class="ion-ios-star-outline"></span></a>-->
+<!--	    								<a href="#"><span class="ion-ios-star-outline"></span></a>-->
+<!--	    								<a href="#"><span class="ion-ios-star-outline"></span></a>-->
+<!--	    								<a href="#"><span class="ion-ios-star-outline"></span></a>-->
+<!--	    							</p>-->
+<!--	    						</div>-->
 	    					</div>
     						<h3><a href="{{i.get_url}}">{{i.name}}</a></h3>
     						<div class="pricing">
@@ -356,13 +354,46 @@
     		</div>
     	</div>
     </section>
-
+<center>
 	{% for i in pr.paginator.page_range %}
   <a href="?page={{i}}" class="btn btn-light btn-sm{% if pr.number == i%} active {% endif %}">{{i}}</a>
 
   {% endfor %}
 
-<center></center>
+</center>
+
+<!------------------------------>
+<!-- ------------------------Pagination--------------------------- -->
+				  <div class="container">
+					<div class="row my-5">
+						<div class="col-md-3 offset-md-5">
+
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									{% if pr.has_previous %}
+									<li class="page-item"><a class="page-link" href="?page={{ pr.previous_page_number }}">Previous</a>
+									</li>
+									{% endif %}
+
+									{% for i in pr.paginator.page_range %}
+									<li class="page-item{% if pr.number == i %} active{% endif %}">
+										<a class="page-link" href="?page={{i}}">{{i}}</a>
+									</li>
+									{% endfor %}
+
+									{% if pr.has_next %}
+									<li class="page-item"><a class="page-link" href="?page={{ pr.next_page_number }}">Next</a>
+									</li>
+									{% endif %}
+								</ul>
+
+							</nav>
+						</div>
+					</div>
+				  </div>
+
+<!------------------------------>
+
 
     <section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
     	<div class="container">

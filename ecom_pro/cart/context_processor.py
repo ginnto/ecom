@@ -1,8 +1,5 @@
-
 from . views import *
 from home.views import *
-
-
 
 
 def cate(request):
@@ -11,11 +8,29 @@ def cate(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def cart_total(request):
     tot = 0
     count = 0
 
-    # Retrieve the cart items and calculate the total and count
     user = request.user
     if user.is_authenticated:
         ct = cartlist.objects.filter(user=user)
