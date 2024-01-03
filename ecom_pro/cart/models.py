@@ -18,20 +18,11 @@ class items(models.Model):
     cart=models.ForeignKey(cartlist,on_delete=models.CASCADE)
     quan=models.IntegerField()
     active=models.BooleanField(default=True)
-
     def __str__(self):
         return str(self.prod)
 
     def total(self):
         return self.prod.price*self.quan
-
-
-
-
-
-
-
-
 
 class Checkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -54,13 +54,6 @@ class products(models.Model):
 
     class Meta:
         ordering = ['-date']
-
-
-
-
-
-
-
     def get_url(self):
         return reverse('detail',args=[self.category.slug,self.slug])
 

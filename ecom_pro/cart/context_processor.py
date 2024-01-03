@@ -7,26 +7,6 @@ def cate(request):
     return {'ct':cat}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def cart_total(request):
     tot = 0
     count = 0

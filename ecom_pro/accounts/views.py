@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
+
+import math
+import omdb
 from django.contrib import messages
 import uuid
 
@@ -37,6 +40,11 @@ def register(request):
         return render(request, 'register.html')
 
 
+
+
+
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -60,6 +68,6 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-
+print('hai')
 def logtest(request):
     return render(request,"login2.html")
